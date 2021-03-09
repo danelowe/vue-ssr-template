@@ -1,12 +1,10 @@
 import devalue from "@nuxt/devalue";
 import {renderToString} from '@vue/server-renderer'
-import {IncomingMessage} from "http";
 import {createApp} from './main'
 export type SSRManifest = {[k: string]: string[]}
-import {Component} from 'vue'
 
-export async function renderApp(appComponent: Component, url: string, manifest: SSRManifest, request: IncomingMessage) {
-  const { app, router, store } = createApp(appComponent)
+export async function render(url: string, manifest: SSRManifest) {
+  const { app, router, store } = createApp()
 
   // set the router to the desired URL before rendering
   router.push(url)

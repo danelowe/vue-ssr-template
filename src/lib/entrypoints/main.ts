@@ -4,7 +4,9 @@ import {Router} from "vue-router";
 import {createStore, ModuleTree, Store} from "vuex";
 import {createRouter} from '~/lib/router'
 import storeModules from '~/store'
-import {App, Component} from 'vue'
+import {App} from 'vue'
+// @ts-ignore
+import AppComponent from 'App.vue'
 
 export interface AppContext {
     app: App<HTMLElement>,
@@ -15,8 +17,8 @@ export interface AppContext {
 }
 
 // SSR requires a fresh app instance per request, therefore we export a function that creates a fresh app instance.
-export function createApp(appComponent: Component): AppContext {
-    const app = createSSRApp(appComponent) as App<HTMLElement>
+export function createApp(): AppContext {
+    const app = createSSRApp(AppComponent) as App<HTMLElement>
     const router = createRouter()
     app.use(router)
     const head = createHead()

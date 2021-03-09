@@ -12,11 +12,8 @@ const { device, platform } = buildParams()
 export default defineConfig({
   build: platform === 'server' ? {
     outDir: `dist/${device}/server`,
-    ssr: `src/lib/entrypoints/server-${device}.ts`
+    ssr: 'src/lib/entrypoints/server.ts'
   } : {
-    rollupOptions: {
-      input: {main: path.resolve(__dirname, `${device}.html`)}
-    },
     outDir: `dist/${device}/client`,
     // assetsDir: `assets/${device}`,
     ssrManifest: true,
@@ -25,6 +22,7 @@ export default defineConfig({
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
       '~pages': `${path.resolve(__dirname, 'src')}/pages/${device}/`,
+      'App.vue': `${path.resolve(__dirname, 'src')}/components/apps/${device}.vue`,
     },
   },
   plugins: [
